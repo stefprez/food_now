@@ -1,4 +1,4 @@
-package example.foodnow;
+package com.example.foodnow;
 
 import org.junit.Test;
 
