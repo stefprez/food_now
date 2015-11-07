@@ -1,4 +1,4 @@
-package example.foodnow;
+package com.example.foodnow;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
