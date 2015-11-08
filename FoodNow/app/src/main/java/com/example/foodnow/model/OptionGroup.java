@@ -27,6 +27,16 @@ public class OptionGroup implements MenuChild {
 
     @SerializedName("children")
     private ArrayList<MenuChild> children;
+    private MenuChild parent;
+    private List<MenuChild> listOfChildrenToCheck;
+
+    public void setEverything(String id, String name, int minSelection, int maxSelection) {
+        this.id = id;
+        this.name = name;
+        this.minSelection = minSelection;
+        this.maxSelection = maxSelection;
+        this.children = new ArrayList<>();
+    }
 
     @Override
     public String getId() {
@@ -44,6 +54,16 @@ public class OptionGroup implements MenuChild {
     }
 
     @Override
+    public MenuChild getParent() {
+        return this.parent;
+    }
+
+    @Override
+    public void setParent(MenuChild parent) {
+        this.parent = parent;
+    }
+
+    @Override
     public ArrayList<MenuChild> getChildren() {
         return children;
     }
@@ -55,7 +75,10 @@ public class OptionGroup implements MenuChild {
 
     @Override
     public void addChildren(List<MenuChild> children) {
-        this.children = new ArrayList<MenuChild>(children);
+        for (MenuChild child: children) {
+            child.setParent(this);
+        }
+        this.children.addAll(children);
     }
 
     @Override
@@ -77,6 +100,39 @@ public class OptionGroup implements MenuChild {
         }
 
         return childrenToAddToOrderItem;
+    }
+
+    @Override
+    public void addChild(MenuChild child) {
+        child.setParent(this);
+        this.children.add(child);
+    }
+
+    @Override
+    public List<MenuChild> getListOfChildrenToCheck() {
+        return this.listOfChildrenToCheck;
+    }
+
+    @Override
+    public void setListOfChildrenToCheck(List<MenuChild> listOfChildrenToCheck) {
+        this.listOfChildrenToCheck = listOfChildrenToCheck;
+    }
+
+    @Override
+    public MenuChild getCopy() {
+        OptionGroup optionGroup = new OptionGroup();
+
+        optionGroup.id = new String(this.id);
+        optionGroup.name = new String(this.name);
+        optionGroup.description = new String(this.description);
+        optionGroup.minSelection = this.minSelection;
+        optionGroup.maxSelection = this.maxSelection;
+        optionGroup.selDep = this.selDep;
+        optionGroup.children = new ArrayList<>();
+        optionGroup.parent = this.parent;
+        optionGroup.listOfChildrenToCheck = new ArrayList<>();
+
+        return optionGroup;
     }
 
     public int getMaxSelection() {

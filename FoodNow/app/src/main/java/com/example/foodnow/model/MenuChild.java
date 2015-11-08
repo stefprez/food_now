@@ -10,6 +10,10 @@ public interface MenuChild {
 
     public String getDescription();
 
+    public MenuChild getParent();
+
+    public void setParent(MenuChild parent);
+
     public List<MenuChild> getChildren();
 
     public boolean hasChildren();
@@ -17,4 +21,12 @@ public interface MenuChild {
     public void addChildren(List<MenuChild> children);
 
     public List<MenuChild> getRandomChildrenToAddToOrderItem();
+
+    void addChild(MenuChild child);
+
+    public List<MenuChild> getListOfChildrenToCheck();
+
+    public void setListOfChildrenToCheck(List<MenuChild> listOfChildrenToCheck);
+
+    public MenuChild getCopy();
 }
