@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         orderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String foodOrderedAlertText = "You ordered some fud, homie.";
+                String foodOrderedAlertText = "Your mystery item is on its way...";
                 Snackbar.make(view, foodOrderedAlertText, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }

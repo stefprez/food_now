@@ -1,6 +1,7 @@
 package com.example.foodnow.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Item implements MenuChild {
     private String id;
@@ -10,7 +11,7 @@ public class Item implements MenuChild {
     private String description;
     private int minQuantity;
     private int maxQuantity;
-    private ArrayList<MenuChild> children;
+    private List<MenuChild> children;
 
     @Override
     public String getId() {
@@ -27,8 +28,23 @@ public class Item implements MenuChild {
     }
 
     @Override
-    public ArrayList<MenuChild> getChildren() {
+    public List<MenuChild> getChildren() {
         return children;
+    }
+
+    @Override
+    public boolean hasChildren() {
+        return !(this.children.isEmpty());
+    }
+
+    @Override
+    public void addChildren(List<MenuChild> children) {
+        this.children = new ArrayList<MenuChild>(children);
+    }
+
+    @Override
+    public List<MenuChild> getRandomChildrenToAddToOrderItem() {
+        return new ArrayList<MenuChild>();
     }
 
     @Override
