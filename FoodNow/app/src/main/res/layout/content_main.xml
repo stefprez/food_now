@@ -21,5 +21,29 @@
             android:textColor="#ffffff"
             android:textSize="36dp"
             android:nestedScrollingEnabled="false" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/confirmText"
+            android:layout_marginTop="34dp"
+            android:textAlignment="center"
+            android:text="Your mystery item is on its way..."
+            android:visibility="invisible"
+            android:layout_below="@+id/orderButton"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="10dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Order"
+            android:id="@+id/newOrderButton"
+            android:background="@color/colorAccent"
+            android:textColor="#ffffff"
+            android:visibility="invisible"
+            android:layout_below="@+id/confirmText"
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 </LinearLayout>

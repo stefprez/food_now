@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,14 +29,23 @@ public class MainActivity extends AppCompatActivity {
         APIWrapper BOOM = new APIWrapper();
         BOOM.doAPICALL();
 
+        final TextView confirmationText = (TextView) findViewById(R.id.confirmText);
+        final Button newOrderButton = (Button) findViewById(R.id.newOrderButton);
+        newOrderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmationText.setVisibility(View.INVISIBLE);
+                newOrderButton.setVisibility(View.INVISIBLE);
+            }
+        });
+
         Button orderButton = (Button) findViewById(R.id.orderButton);
         orderButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                String foodOrderedAlertText = "Your mystery item is on its way...";
-                Snackbar.make(view, foodOrderedAlertText, Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                confirmationText.setVisibility(View.VISIBLE);
+                newOrderButton.setVisibility(View.VISIBLE);
             }
         });
 
@@ -56,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
                         .show();
             }
         });
+
     }
 
     @Override
