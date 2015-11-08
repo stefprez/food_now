@@ -25,7 +25,6 @@ dependencies {
 
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:design:23.0.1'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.0.1'
+    compile 'com.squareup.okhttp:okhttp:2.5.0'
     compile 'com.google.code.gson:gson:2.3'
-
 }
