@@ -7,5 +7,7 @@ public interface MenuChild {
 
     public String getName();
 
+    public String getDescription();
+
     public ArrayList<MenuChild> getChildren();
 }
