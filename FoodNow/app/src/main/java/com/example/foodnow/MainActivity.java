@@ -17,8 +17,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        APIWrapper BOOM = new APIWrapper();
+        BOOM.doAPICALL();
+
         ImageButton orderButton = (ImageButton) findViewById(R.id.orderButton);
         orderButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 String foodOrderedAlertText = "You ordered some fud, homie.";
