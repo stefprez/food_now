@@ -1,13 +1,20 @@
 package example.foodnow;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import android.os.AsyncTask;
+import android.util.Log;
+
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 import org.json.JSONObject;
+
 
 /**
  * Created by rwitting on 11/7/15.
  */
 public class APIWrapper {
+    //final static String host = "http://sandbox.delivery.com/";
     final static String host = "http://sandbox.delivery.com/";
 
     final static String GUEST_TOKEN = "Guest-Token";
@@ -26,5 +33,36 @@ public class APIWrapper {
     final static String ORDER_TYPE = "delivery";
 
     public JSONObject data;
+    OkHttpClient mClient = new OkHttpClient();
+    public void doAPICALL(){
+        new LongOperation().execute("");
+    };
 
+    private class LongOperation extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            try{
+                Request req = new Request.Builder().url("http://sandbox.delivery.com/merchant/search/delivery?address=704+Pearl+St,+48197&client_id=OGM0ODA2Mjk2ZTVjYzA0ZGJjZWQxODg5YjY4ZjVjYzBl").build();
+                Response response = mClient.newCall(req).execute();
+                Log.d("test",response.body().string());
+                return response.body().string();
+            }catch(Exception e){
+                Log.e("test",e.getMessage(),e);
+            }
+            return "";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            //Log.d("test",result);
+        }
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+        }
+    }
 }
