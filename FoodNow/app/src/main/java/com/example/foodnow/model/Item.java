@@ -18,6 +18,12 @@ public class Item implements MenuChild {
     private MenuChild parent;
     private List<MenuChild> listOfChildrenToCheck;
 
+    public void setEverything(String id, String name) {
+        this.id = id;
+        this.name = name;
+        this.children = new ArrayList<MenuChild>();
+    }
+
     @Override
     public String getId() {
         return id;
@@ -44,6 +50,9 @@ public class Item implements MenuChild {
 
     @Override
     public void addChildren(List<MenuChild> children) {
+        for (MenuChild child: children) {
+            child.setParent(this);
+        }
         this.children.addAll(children);
     }
 
@@ -54,6 +63,7 @@ public class Item implements MenuChild {
 
     @Override
     public void addChild(MenuChild child) {
+        child.setParent(this);
         this.children.add(child);
     }
 
@@ -65,6 +75,23 @@ public class Item implements MenuChild {
     @Override
     public void setListOfChildrenToCheck(List<MenuChild> listOfChildrenToCheck) {
         this.listOfChildrenToCheck = listOfChildrenToCheck;
+    }
+
+    @Override
+    public MenuChild getCopy() {
+        Item item = new Item();
+        item.id = new String (this.id);
+        item.name = new String(this.name);
+        item.maxPrice = this.maxPrice;
+        item.price = this.price;
+        item.description = new String(this.description);
+        item.minQuantity = this.minQuantity;
+        item.maxQuantity = this.maxQuantity;
+        item.children = new ArrayList<>();
+        item.parent = this.parent;
+        item.listOfChildrenToCheck = new ArrayList<>();
+
+        return item;
     }
 
     @Override

@@ -13,30 +13,32 @@ public class FoodItemFactory {
 
     public static Item buildFoodItem(Item randomlyChosenItem) {
 
-        Item itemToAddToOrder = new Item();
+        // TODO: Probably borked
+        MenuChild itemToAddToOrder = randomlyChosenItem.getCopy(); // give information
+        MenuChild parentInMenu = randomlyChosenItem;
 
-        List<MenuChild> childrenToExplore = new ArrayList<MenuChild>();
-
-        List<MenuChild> randomChildrenToAddToOrderItem = itemToAddToOrder.getRandomChildrenToAddToOrderItem();
-        childrenToExplore.addAll(randomChildrenToAddToOrderItem);
-
-        MenuChild parent = itemToAddToOrder;
+        MenuChild parentInOrderItem = itemToAddToOrder;
         MenuChild current;
         List<MenuChild> listOfChildrenToCheck;
-        while (parent != null) {
-            listOfChildrenToCheck = parent.getListOfChildrenToCheck();
+        List<MenuChild> childrenToAdd;
+        while (parentInOrderItem != null) {
+            listOfChildrenToCheck = parentInOrderItem.getListOfChildrenToCheck();
             if (listOfChildrenToCheck == null) {
-                parent.setListOfChildrenToCheck(parent.getRandomChildrenToAddToOrderItem());
+                childrenToAdd = parentInMenu.getRandomChildrenToAddToOrderItem();
+                parentInOrderItem.setListOfChildrenToCheck(childrenToAdd);
             } else if (listOfChildrenToCheck.isEmpty()) {
-                parent = parent.getParent();
+                parentInMenu = parentInMenu.getParent();
+                parentInOrderItem = parentInOrderItem.getParent();
             } else {
                 current = popFromEndOfList(listOfChildrenToCheck);
-                parent.addChild(current);
-                parent = current;
+                parentInMenu = current;
+                current = current.getCopy();
+                parentInOrderItem.addChild(current);
+                parentInOrderItem = current;
             }
         }
 
-        return itemToAddToOrder;
+        return (Item)itemToAddToOrder;
     }
 
     private static MenuChild popFromEndOfList(List<MenuChild> children) {

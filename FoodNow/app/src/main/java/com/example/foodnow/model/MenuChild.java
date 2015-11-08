@@ -27,4 +27,6 @@ public interface MenuChild {
     public List<MenuChild> getListOfChildrenToCheck();
 
     public void setListOfChildrenToCheck(List<MenuChild> listOfChildrenToCheck);
+
+    public MenuChild getCopy();
 }

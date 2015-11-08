@@ -66,6 +66,9 @@ public class Option implements MenuChild {
 
     @Override
     public void addChildren(List<MenuChild> children) {
+        for (MenuChild child: children) {
+            child.setParent(this);
+        }
         this.children.addAll(children);
     }
 
@@ -76,6 +79,7 @@ public class Option implements MenuChild {
 
     @Override
     public void addChild(MenuChild child) {
+        child.setParent(this);
         this.children.add(child);
     }
 
@@ -87,6 +91,23 @@ public class Option implements MenuChild {
     @Override
     public void setListOfChildrenToCheck(List<MenuChild> listOfChildrenToCheck) {
         this.listOfChildrenToCheck = listOfChildrenToCheck;
+    }
+
+    @Override
+    public MenuChild getCopy() {
+        Option option = new Option();
+
+        option.id = new String(this.name);
+        option.price = this.price;
+        option.maxPrice = this.maxPrice;
+        option.name = new String(this.name);
+        option.description = new String(this.description);
+        option.increment = this.increment;
+        option.children = new ArrayList<>();
+        option.parent = this.parent;
+        option.listOfChildrenToCheck = null;
+
+        return option;
     }
 
     public float getMaxPrice() {
