@@ -1,5 +1,8 @@
 package com.example.foodnow;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,19 +11,24 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        final Context context = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         APIWrapper BOOM = new APIWrapper();
         BOOM.doAPICALL();
 
-        ImageButton orderButton = (ImageButton) findViewById(R.id.orderButton);
+        Button orderButton = (Button) findViewById(R.id.orderButton);
         orderButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -28,6 +36,24 @@ public class MainActivity extends AppCompatActivity {
                 String foodOrderedAlertText = "Your mystery item is on its way...";
                 Snackbar.make(view, foodOrderedAlertText, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+            }
+        });
+
+        FloatingActionButton infoButton = (FloatingActionButton) findViewById(R.id.infoButton);
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String orderedItemDetails = "FILLER";
+                new AlertDialog.Builder(context)
+                        .setTitle("Ordered Item")
+                        .setMessage(orderedItemDetails)
+                        .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_menu_info_details)
+                        .show();
             }
         });
     }
