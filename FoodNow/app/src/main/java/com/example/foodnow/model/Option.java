@@ -26,6 +26,8 @@ public class Option implements MenuChild {
 
     @SerializedName("children")
     private ArrayList<MenuChild> children;
+    private MenuChild parent;
+    private List<MenuChild> listOfChildrenToCheck;
 
     @Override
     public String getId() {
@@ -43,6 +45,16 @@ public class Option implements MenuChild {
     }
 
     @Override
+    public MenuChild getParent() {
+        return this.parent;
+    }
+
+    @Override
+    public void setParent(MenuChild parent) {
+        this.parent = parent;
+    }
+
+    @Override
     public ArrayList<MenuChild> getChildren() {
         return children;
     }
@@ -54,12 +66,27 @@ public class Option implements MenuChild {
 
     @Override
     public void addChildren(List<MenuChild> children) {
-        this.children = new ArrayList<MenuChild>(children);
+        this.children.addAll(children);
     }
 
     @Override
     public List<MenuChild> getRandomChildrenToAddToOrderItem() {
         return new ArrayList<MenuChild>();
+    }
+
+    @Override
+    public void addChild(MenuChild child) {
+        this.children.add(child);
+    }
+
+    @Override
+    public List<MenuChild> getListOfChildrenToCheck() {
+        return this.listOfChildrenToCheck;
+    }
+
+    @Override
+    public void setListOfChildrenToCheck(List<MenuChild> listOfChildrenToCheck) {
+        this.listOfChildrenToCheck = listOfChildrenToCheck;
     }
 
     public float getMaxPrice() {
