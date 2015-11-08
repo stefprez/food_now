@@ -3,8 +3,10 @@ package com.example.foodnow.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Item implements MenuChild {
+
     @SerializedName("id") private String id;
     @SerializedName("price") private float price;
     @SerializedName("max_price") private float maxPrice;
@@ -29,8 +31,23 @@ public class Item implements MenuChild {
     }
 
     @Override
-    public ArrayList<MenuChild> getChildren() {
+    public List<MenuChild> getChildren() {
         return children;
+    }
+
+    @Override
+    public boolean hasChildren() {
+        return !(this.children.isEmpty());
+    }
+
+    @Override
+    public void addChildren(List<MenuChild> children) {
+        this.children = new ArrayList<MenuChild>(children);
+    }
+
+    @Override
+    public List<MenuChild> getRandomChildrenToAddToOrderItem() {
+        return new ArrayList<MenuChild>();
     }
 
     @Override
