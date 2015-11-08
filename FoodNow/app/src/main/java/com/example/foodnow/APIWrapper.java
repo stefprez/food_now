@@ -1,4 +1,4 @@
-package example.foodnow;
+package com.example.foodnow;
 
 import android.os.AsyncTask;
 import android.util.Log;

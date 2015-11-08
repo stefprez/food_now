@@ -9,8 +9,6 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import example.foodnow.APIWrapper;
-
 public class MainActivity extends AppCompatActivity {
 
     @Override
