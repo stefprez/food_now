@@ -29,40 +29,45 @@ public class APIWrapper {
     final static String SEARCH_URL = "merchant/search/delivery";
     final static String SEARCH_ADDRESS = "1330 1st Ave, 10021";
     final static String ADDRESS_APT = "Apt 123";
-    final static String CLIENT_ID = "NDU1MWU1YjM4NzczMjljN2ZlNjFkODFkNDhlMjdkZGZk";
+    final static String CLIENT_ID = "OGM0ODA2Mjk2ZTVjYzA0ZGJjZWQxODg5YjY4ZjVjYzBl";
     final static String ORDER_TYPE = "delivery";
 
     public JSONObject data;
     OkHttpClient mClient = new OkHttpClient();
     public void doAPICALL(){
         new LongOperation().execute("");
+
+    };
+
+    public void getMerchants(){
+
     };
 
     private class LongOperation extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... params) {
-            try{
-                Request req = new Request.Builder().url("http://sandbox.delivery.com/merchant/search/delivery?address=704+Pearl+St,+48197&client_id=OGM0ODA2Mjk2ZTVjYzA0ZGJjZWQxODg5YjY4ZjVjYzBl").build();
-                Response response = mClient.newCall(req).execute();
-                Log.d("test",response.body().string());
-                return response.body().string();
-            }catch(Exception e){
-                Log.e("test",e.getMessage(),e);
+            @Override
+            protected String doInBackground(String... params) {
+                try{
+                    Request req = new Request.Builder().url(host + "merchant/search/delivery?address=704+Pearl+St,+48197&client_id=" + CLIENT_ID).build();
+                    Response response = mClient.newCall(req).execute();
+                    Log.d("test",response.body().string());
+                    return response.body().string();
+                }catch(Exception e){
+                    Log.e("test",e.getMessage(),e);
+                }
+                return "";
             }
-            return "";
-        }
 
-        @Override
-        protected void onPostExecute(String result) {
-            //Log.d("test",result);
-        }
+            @Override
+            protected void onPostExecute(String result) {
+                //Log.d("test",result);
+            }
 
-        @Override
-        protected void onPreExecute() {
-        }
+            @Override
+            protected void onPreExecute() {
+            }
 
-        @Override
-        protected void onProgressUpdate(Void... values) {
-        }
+            @Override
+            protected void onProgressUpdate(Void... values) {
+            }
     }
 }
