@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String orderedItemDetails = "FILLER";
+                String orderedItemDetails = "Item: Pizza\nOptions: Pepperoni, Bacon, Sausage\nCost: $14.38";
                 new AlertDialog.Builder(context)
                         .setTitle("Ordered Item")
                         .setMessage(orderedItemDetails)
