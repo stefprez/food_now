@@ -27,22 +27,11 @@ public class MainActivity extends AppCompatActivity {
         final Context context = this;
         super.onCreate(savedInstanceState);
 
-        //TODO: Shit's borked. Sorry guys.
-//        Item pizza = new Item();
-//        pizza.setEverything("1", "Pizza");
-//
-//        OptionGroup toppings = new OptionGroup();
-//        toppings.setEverything("2", "Toppings", 0, 0);
-//
-//        pizza.addChild(toppings);
-//        Item orderedItem = FoodItemFactory.buildFoodItem(pizza);
-//        Log.d("ITEM", orderedItem.getName());
-//        Log.d("GROUP", orderedItem.getChildren().get(0).getName());
-
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         APIWrapper BOOM = new APIWrapper();
         BOOM.doAPICALL();
@@ -62,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
+                placeRandomOrder();
                 confirmationText.setVisibility(View.VISIBLE);
                 newOrderButton.setVisibility(View.VISIBLE);
             }
@@ -107,5 +97,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public static void placeRandomOrder() {
+        // TODO
     }
 }

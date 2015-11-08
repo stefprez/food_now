@@ -66,7 +66,7 @@ public class Option implements MenuChild {
 
     @Override
     public void addChildren(List<MenuChild> children) {
-        for (MenuChild child: children) {
+        for (MenuChild child : children) {
             child.setParent(this);
         }
         this.children.addAll(children);
@@ -101,7 +101,11 @@ public class Option implements MenuChild {
         option.price = this.price;
         option.maxPrice = this.maxPrice;
         option.name = new String(this.name);
-        option.description = new String(this.description);
+        if (this.description == null) {
+            option.description = null;
+        } else {
+            option.description = new String(this.description);
+        }
         option.increment = this.increment;
         option.children = new ArrayList<>();
         option.parent = this.parent;

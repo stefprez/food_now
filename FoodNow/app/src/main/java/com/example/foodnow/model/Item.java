@@ -1,5 +1,6 @@
 package com.example.foodnow.model;
 
+import com.example.foodnow.controller.Randomizer;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -7,14 +8,22 @@ import java.util.List;
 
 public class Item implements MenuChild {
 
-    @SerializedName("id") private String id;
-    @SerializedName("price") private float price;
-    @SerializedName("max_price") private float maxPrice;
-    @SerializedName("name") private String name;
-    @SerializedName("description") private String description;
-    @SerializedName("min_qty") private int minQuantity;
-    @SerializedName("max_qty") private int maxQuantity;
-    @SerializedName("children") private ArrayList<MenuChild> children;
+    @SerializedName("id")
+    private String id;
+    @SerializedName("price")
+    private float price;
+    @SerializedName("max_price")
+    private float maxPrice;
+    @SerializedName("name")
+    private String name;
+    @SerializedName("description")
+    private String description;
+    @SerializedName("min_qty")
+    private int minQuantity;
+    @SerializedName("max_qty")
+    private int maxQuantity;
+    @SerializedName("children")
+    private ArrayList<MenuChild> children;
     private MenuChild parent;
     private List<MenuChild> listOfChildrenToCheck;
 
@@ -50,7 +59,7 @@ public class Item implements MenuChild {
 
     @Override
     public void addChildren(List<MenuChild> children) {
-        for (MenuChild child: children) {
+        for (MenuChild child : children) {
             child.setParent(this);
         }
         this.children.addAll(children);
@@ -58,7 +67,15 @@ public class Item implements MenuChild {
 
     @Override
     public List<MenuChild> getRandomChildrenToAddToOrderItem() {
-        return new ArrayList<MenuChild>();
+        List<MenuChild> childrenToAddToOrderItem = new ArrayList<MenuChild>();
+
+        int numberToSelect = Randomizer.getRandomIntInclusive(0, this.children.size() - 1);
+
+        MenuChild childToAdd;
+        childToAdd = this.getChildren().get(numberToSelect);
+        childrenToAddToOrderItem.add(childToAdd);
+
+        return childrenToAddToOrderItem;
     }
 
     @Override
@@ -80,15 +97,23 @@ public class Item implements MenuChild {
     @Override
     public MenuChild getCopy() {
         Item item = new Item();
-        item.id = new String (this.id);
+        item.id = new String(this.id);
         item.name = new String(this.name);
         item.maxPrice = this.maxPrice;
         item.price = this.price;
-        item.description = new String(this.description);
+        if (this.description == null) {
+            item.description = null;
+        } else {
+            item.description = new String(this.description);
+        }
         item.minQuantity = this.minQuantity;
         item.maxQuantity = this.maxQuantity;
         item.children = new ArrayList<>();
-        item.parent = this.parent;
+        if (this.parent == null) {
+            item.parent = null;
+        } else {
+            item.parent = this.parent.getCopy(); //wildly inefficient?
+        }
         item.listOfChildrenToCheck = new ArrayList<>();
 
         return item;

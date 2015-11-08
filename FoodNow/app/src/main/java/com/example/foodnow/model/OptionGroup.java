@@ -124,7 +124,11 @@ public class OptionGroup implements MenuChild {
 
         optionGroup.id = new String(this.id);
         optionGroup.name = new String(this.name);
-        optionGroup.description = new String(this.description);
+        if (this.description == null) {
+            optionGroup.description = null;
+        } else {
+            optionGroup.description = new String(this.description);
+        }
         optionGroup.minSelection = this.minSelection;
         optionGroup.maxSelection = this.maxSelection;
         optionGroup.selDep = this.selDep;

@@ -1,44 +1,79 @@
 package com.example.foodnow.controller;
 
+import android.util.Log;
+
 import com.example.foodnow.model.Item;
 import com.example.foodnow.model.MenuChild;
+import com.example.foodnow.model.Option;
+import com.example.foodnow.model.OptionGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by narruda on 11/7/15.
- */
 public class FoodItemFactory {
 
-    public static Item buildFoodItem(Item randomlyChosenItem) {
+//    public static void main(String[] args) {
+//        Item pizza = new Item();
+//        pizza.setEverything("1", "Pizza");
+//
+//        OptionGroup toppings = new OptionGroup();
+//        toppings.setEverything("2", "Toppings", 1, 1);
+//
+//        toppings.addChild(new Option());
+//
+//        pizza.addChild(toppings);
+//        Item orderedItem = FoodItemFactory.buildFoodItem(pizza);
+//
+//        System.out.println(orderedItem.getName());
+//        System.out.println(orderedItem.getChildren().get(0).getChildren().size());
+////        System.out.println(orderedItem.getChildren().get(0).getName());
+//
+//        System.out.println("MADE ITTTTT");
+//        System.exit(0);
+//    }
 
-        // TODO: Probably borked
-        MenuChild itemToAddToOrder = randomlyChosenItem.getCopy(); // give information
+    public static Item buildFoodItem(Item randomlyChosenItem) {
+        MenuChild itemToAddToOrder = randomlyChosenItem.getCopy();
         MenuChild parentInMenu = randomlyChosenItem;
 
         MenuChild parentInOrderItem = itemToAddToOrder;
         MenuChild current;
         List<MenuChild> listOfChildrenToCheck;
         List<MenuChild> childrenToAdd;
+
+//        System.out.println(parentInMenu.getChildren().size());
         while (parentInOrderItem != null) {
-            listOfChildrenToCheck = parentInOrderItem.getListOfChildrenToCheck();
+            listOfChildrenToCheck = parentInMenu.getListOfChildrenToCheck();
             if (listOfChildrenToCheck == null) {
+//                System.out.println("Stage 1");
                 childrenToAdd = parentInMenu.getRandomChildrenToAddToOrderItem();
-                parentInOrderItem.setListOfChildrenToCheck(childrenToAdd);
+                parentInMenu.setListOfChildrenToCheck(childrenToAdd);
             } else if (listOfChildrenToCheck.isEmpty()) {
+//                System.out.println("Stage 2");
                 parentInMenu = parentInMenu.getParent();
                 parentInOrderItem = parentInOrderItem.getParent();
+
+//                if (parentInMenu != null && parentInOrderItem != null) {
+//                    System.out.println("parentInMenu: " + parentInMenu.getId() + " parentInOrderItem: " + parentInOrderItem.getId());
+//                } else
+//                {
+//                    System.out.println("Something was null");
+//                }
+
             } else {
+//                System.out.println("Stage 3");
                 current = popFromEndOfList(listOfChildrenToCheck);
+                current.setParent(parentInMenu);
                 parentInMenu = current;
                 current = current.getCopy();
                 parentInOrderItem.addChild(current);
                 parentInOrderItem = current;
+
+//                System.out.println("parentInMenu: " + parentInMenu.getId() + " parentInOrderItem: " + parentInOrderItem.getId());
             }
         }
 
-        return (Item)itemToAddToOrder;
+        return (Item) itemToAddToOrder;
     }
 
     private static MenuChild popFromEndOfList(List<MenuChild> children) {
