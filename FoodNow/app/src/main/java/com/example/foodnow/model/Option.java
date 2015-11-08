@@ -1,15 +1,30 @@
 package com.example.foodnow.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Option implements MenuChild {
+    @SerializedName("id")
     private String id;
+
+    @SerializedName("price")
     private float price;
+
+    @SerializedName("max_price")
     private float maxPrice;
+
+    @SerializedName("name")
     private String name;
+
+    @SerializedName("description")
     private String description;
+
+    @SerializedName("increment")
     private float increment;
+
+    @SerializedName("children")
     private ArrayList<MenuChild> children;
 
     @Override
