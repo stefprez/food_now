@@ -1,5 +1,6 @@
 package com.example.foodnow.model;
 
+import com.example.foodnow.controller.Randomizer;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -59,8 +60,21 @@ public class OptionGroup implements MenuChild {
 
     @Override
     public List<MenuChild> getRandomChildrenToAddToOrderItem() {
-        OptionGroup optionGroupFromMenu = new OptionGroup();
         List<MenuChild> childrenToAddToOrderItem = new ArrayList<MenuChild>();
+
+        int minSelection = this.getMinSelection();
+        int maxSelection = this.getMaxSelection();
+        double numberToSelect = Randomizer.getRandomIntInclusive(minSelection, maxSelection);
+
+        int childrenOfThisOptionGroup = this.getChildren().size();
+
+        MenuChild childToAdd;
+        for (int i = 0; i < numberToSelect; i++) {
+            do {
+                childToAdd = this.getChildren().get(Randomizer.getRandomIntInclusive(0, childrenOfThisOptionGroup));
+            } while (!childrenToAddToOrderItem.contains(childToAdd));
+            childrenToAddToOrderItem.add(childToAdd);
+        }
 
         return childrenToAddToOrderItem;
     }

@@ -14,18 +14,7 @@ public class FoodItemFactory {
 
         Item itemToAddToOrder = new Item();
 
-        // TODO: this, but recursively
-        List<MenuChild> randomChildrenToAddToOrderItem = randomlyChosenItem.getRandomChildrenToAddToOrderItem();
-        itemToAddToOrder.addChildren(randomChildrenToAddToOrderItem);
 
-        for (MenuChild child: randomChildrenToAddToOrderItem) {
-            List<MenuChild> childrenToAdd = child.getRandomChildrenToAddToOrderItem();
-            itemToAddToOrder.addChildren(childrenToAdd);
-
-            for (MenuChild nextChild: childrenToAdd) {
-                //...
-            }
-        }
 
         return randomlyChosenItem;
     }
